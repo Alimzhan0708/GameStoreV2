@@ -12,10 +12,5 @@ namespace Persistence.Data
         {
             _appDbContext = appDbContext;
         }
-
-        void AddEntityWithoutSave(TEntity entity)
-        {
-            _appDbContext.Add(entity);
-        }
     }
 }

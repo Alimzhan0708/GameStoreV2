@@ -2,6 +2,7 @@
 using Application.Contracts.Output;
 using Application.Dtos.Game;
 using Application.Exceptions;
+using Application.Exceptions.Game;
 using Application.Specifications.Game;
 using Application.Validators.Game;
 using AutoMapper;

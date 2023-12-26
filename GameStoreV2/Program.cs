@@ -1,4 +1,5 @@
 using Application;
+using GameStoreV2.Middlewares;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapControllers();
 

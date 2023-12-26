@@ -1,8 +1,8 @@
 ﻿using Application.Contracts.Input;
 using Application.Dtos.Game;
-using Application.Exceptions;
-using FluentValidation;
+using Application.Exceptions.Common;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameStoreV2.Controllers
 {
@@ -30,38 +30,21 @@ namespace GameStoreV2.Controllers
             return await _gameService.GetGameByIdAsync(id, cancellationToken);
         }
 
+        [ProducesErrorResponseType(typeof(ApiException))]
         [HttpPost("CreateGame")]
         public async Task<ActionResult> CreateGameAsync(CreateGameDto dto, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                await _gameService.CreateGameAsync(dto, cancellationToken);
+            await _gameService.CreateGameAsync(dto, cancellationToken);
 
-                return Ok();
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest("Invalid request");
-            }
+            return Ok();
         }
 
         [HttpPut("UpdateGame")]
         public async Task<ActionResult> UpdateGameAsync(UpdateGameDto dto, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                await _gameService.UpdateGameAsync(dto, cancellationToken);
+            await _gameService.UpdateGameAsync(dto, cancellationToken);
 
-                return Ok();
-            }
-            catch(GameNotFoundException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest("Uknown error");
-            }
+            return Ok();
         }
 
         [HttpDelete("DeleteGame")]
